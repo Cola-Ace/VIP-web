@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <title>VIP管理系统-数据库配置</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+        <link rel = "icon" href = "../image/favicon.ico">
+        <style>
+            .father {
+                margin:0 auto;
+                width:700px;
+                height:700px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "father">
+            <div class = "form-group">
+                <label for = "url">数据库地址</label>
+                <input type = "text" class = "form-control" id = "url" name = "url">
+            </div>
+            <div class = "form-group">
+                <label for = "url">数据库端口 (默认3306)</label>
+                <input type = "text" class = "form-control" id = "port" name = "port" value = "3306">
+            </div>
+            <div class = "form-group">
+                <label for = "user">用户名</label>
+                <input type = "text" class = "form-control" id = "user" name = "user">
+            </div>
+            <div class = "form-group">
+                <label for = "pass">密码</label>
+                <input type = "password" class = "form-control" id = "pass" name = "pass">
+            </div>
+            <div class = "form-group">
+                <label for = "db">库名</label>
+                <input type = "text" class = "form-control" id = "db" name = "db"><br>
+                <button type = "button" class="btn btn-primary" onclick = "CheckForm()" id = "submit"><span id = "icon" class = "glyphicon glyphicon-send"></span> 提交</button>
+            </div>
+        </div>
+    </body>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function CheckForm(){
+            var g_url = document.getElementById("url").value;
+            var g_port = document.getElementById("port").value;
+            var g_user = document.getElementById("user").value;
+            var g_pass = document.getElementById("pass").value;
+            var g_db = document.getElementById("db").value;
+            if (g_url == "" || g_port == "" || g_user == "" || g_pass == "" || g_db == ""){
+                alert("信息未填写完整哦~");
+                return false;
+            }
+            $("#submit").attr("disabled", "disabled");
+            $("#submit").html("<span id = 'icon' class = 'fa fa-spinner fa-spin'></span> 正在连接数据库...");
+            $.post("check.php", {
+                url:g_url,
+                port:g_port,
+                user:g_user,
+                pass:g_pass,
+                db:g_db
+            }, function(data, status){
+                if (status != "success"){
+                    alert("发送请求失败，请联系管理员");
+                    $("#submit").html("<span id = 'icon' class = 'glyphicon glyphicon-send'></span> 提交");
+                    $("#submit").removeAttr("disabled");
+                }
+                if (data != "success"){
+                    alert("数据库连接出错，请重新检查配置信息哦~");
+                    $("#submit").html("<span id = 'icon' class = 'glyphicon glyphicon-send'></span> 提交");
+                    $("#submit").removeAttr("disabled");
+                } else {
+                    alert("数据库连接成功~配置完成，关闭此弹窗即可返回界面");
+                    window.location.href = "../index.php";
+                }
+            });
+        }
+    </script>
+</html>

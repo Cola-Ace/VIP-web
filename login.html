@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <title>VIP管理系统-登录</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+        <link rel = "icon" href = "../image/favicon.ico">
+        <style>
+            .father {
+                margin:0 auto;
+                width:700px;
+                height:700px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "father">
+            <div class = "form-group">
+                <label for = "user">用户名</label>
+                <input type = "text" class = "form-control" id = "user" name = "user">
+            </div>
+            <div class = "form-group">
+                <label for = "pass">密码</label>
+                <input type = "password" class = "form-control" id = "pass" name = "pass">
+            </div>
+        </div>
+    </body>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function CheckForm(){
+            var g_user = document.getElementById("user").value;
+            var g_pass = document.getElementById("pass").value;
+            if (g_user == "" || g_pass == ""){
+                alert("信息未填写完整哦~");
+                return false;
+            }
+            $("#submit").attr("disabled", "disabled");
+            $("#submit").html("<span id = 'icon' class = 'fa fa-spinner fa-spin'></span> 正在登录...");
+            $.post("login.php", {
+                user:g_user,
+                pass:g_pass,
+            }, function(data, status){
+                if (status != "success"){
+                    alert("发送请求失败，请联系管理员");
+                    $("#submit").html("<span id = 'icon' class = 'glyphicon glyphicon-send'></span> 提交");
+                    $("#submit").removeAttr("disabled");
+                }
+                if (data != "success"){
+                    alert("用户名或密码错误~");
+                    $("#submit").html("<span id = 'icon' class = 'glyphicon glyphicon-send'></span> 提交");
+                    $("#submit").removeAttr("disabled");
+                } else {
+                    alert("登录成功~");
+                    window.location.href = "../index.php";
+                }
+            });
+        }
+    </script>
+</html>
