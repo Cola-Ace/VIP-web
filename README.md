@@ -10,6 +10,7 @@
 * jQuery
 * PHP 7+
 * bootstrap
+* Font-Awesome
 # 目前已完成
 * 数据库配置界面
 * 登录界面
