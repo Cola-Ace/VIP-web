@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
-        <link rel = "icon" href = "../image/favicon.ico">
+        <link rel = "icon" href = "image/favicon.ico">
         <style>
             .father {
                 margin:0 auto;
@@ -23,7 +23,8 @@
             </div>
             <div class = "form-group">
                 <label for = "pass">密码</label>
-                <input type = "password" class = "form-control" id = "pass" name = "pass">
+                <input type = "password" class = "form-control" id = "pass" name = "pass"><br>
+                <button type = "button" class="btn btn-primary" onclick = "CheckForm()" id = "submit"><span id = "icon" class = "glyphicon glyphicon-send"></span> 提交</button>
             </div>
         </div>
     </body>
@@ -54,7 +55,7 @@
                     $("#submit").removeAttr("disabled");
                 } else {
                     alert("登录成功~");
-                    window.location.href = "../index.php";
+                    window.location.href = "index.php";
                 }
             });
         }

@@ -8,15 +8,16 @@
         return;
     }
     $user = $_POST["user"];
-    $pass = md5($_POST["pass"]);
+    $pass = $_POST["pass"];
+    $md5_pass = md5($pass);
     $sql = "SELECT * FROM vip_web_user WHERE user = '". $user ."'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0){
         $row = $result->fetch_assoc();
         $sql_pass = $row["pass"];
-        if ($sql_pass == $pass){
+        if ($sql_pass == $md5_pass){
             setcookie("user", $user);
-            setcookie("pass", $pass);
+            setcookie("pass", $md5_pass);
             echo "success";
             return;
         } else {
