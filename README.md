@@ -5,12 +5,9 @@
     * VIP-web项目创建
 # 网页使用语言
 * HTML5
-* CSS3
-* JavaScript
-* jQuery
+* CSS3 **(Bootstrap Font-Awesome)**
+* JavaScript **(jQuery)**
 * PHP 7+
-* bootstrap
-* Font-Awesome
 # 目前已完成
 * 数据库配置界面
 * 登录界面
