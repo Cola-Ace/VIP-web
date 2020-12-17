@@ -10,7 +10,7 @@
     <style>
         body {
             margin:0 auto;
-            width:700px;
+            width:800px;
             height:700px;
         }
     </style>
@@ -36,4 +36,48 @@
         echo "error user";
         return;
     }
+    $sql = "SELECT * FROM vipCode";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0){
+        echo "<table class = 'table table-striped table-bordered'><thead><tr><th>VIP卡密</th><th>天数</th><th></th></tr></thead><tbody style = 'font-size:23px;'>";
+        while ($row = $result->fetch_assoc()){
+            echo "<tr><td>". $row["VIPKEY"] ."</td><td id = 'days'>" . $row["DAYS"] . "</td><td><button id = 'del' class = 'btn btn-primary' id = '". $row["VIPKEY"] ."'><i class = 'fa fa-times'></i> 删除</button></td></tr>";//<button type = 'button' class = 'btn btn-success' id = 'save'><i class = 'fa fa-check-square'></i> 保存更改</button>
+        }
+    } else {
+        echo "数据库中没有VIP卡密哦~";
+        return;
+    }
 ?>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $(function(){
+        $("#save").hide();
+        $("#del").click(function(){
+            $keys = $(this).attr("id");
+            $.post("del-keys.php", {
+                key:$keys
+            }, function(data, status){
+                if (status != "success"){
+                    alert("发送请求失败，请联系管理员");
+                    return;
+                }
+                if (data != "success"){
+                    alert("删除失败~");
+                    return;
+                }
+                alert("删除成功~");
+                window.location.reload();
+            });
+        });
+        /*
+        $("#days").click(function(){
+            $(this).next("#save").show();
+            $(this).attr("id", "edit");
+            $(this).html("<form role = 'form'><div class = 'form-group'><input class = 'form-control' id = 'day' value = '" + $(this).val + "'></div></form>");
+        });
+        $("#save").click(function(){
+            var day = $(this).prev("#edit").val;
+        });*/
+    });
+</script>
