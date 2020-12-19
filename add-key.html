@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset = "UTF-8">
+    <title>VIP管理系统-卡密添加</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "icon" href = "image/favicon.ico">
+</head>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    function FindStr(source, str1, str2){
+        var p = source.split(str1);
+        return p[p.length - 1].split(str2, 1)[0];
+    }
+    $(function(){
+        var days = prompt("请输入天数：");
+        if (days == null || days == ""){
+            window.location.href = "index.php";
+            return;
+        }
+        $.post("add-key.php", {
+            day:days
+        }, function(data, status){
+            if (status != "success"){
+                alert("发送请求失败，请联系管理员");
+            }
+            if (FindStr(data, "[Status]", "[StatusEnd]") != "success"){
+                alert("添加失败~");
+            } else {
+                alert("添加成功~卡密：" + FindStr(data, "[Data]", "[DataEnd]") + ", 天数：" + days);
+            }
+            window.location.href = "index.php";
+        })
+    });
+</script>

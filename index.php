@@ -46,10 +46,11 @@
     }
 ?>
 <body>
-    <span>欢迎回来, admin</span>
-    <button onclick = "window.location.href='key.php'" class = "btn btn-primary btn-lg btn-block">卡密管理</button><br><br>
-    <button onclick = "window.location.href='users.php'" class = "btn btn-primary btn-lg btn-block">VIP用户管理</button><br><br>
-    <button onclick = "window.location.href='perks.php'" class = "btn btn-primary btn-lg btn-block">VIP用户配置管理</button>
+    <button onclick = "window.location.href='key.php'" class = "btn btn-primary btn-lg btn-block">卡密管理</button><br>
+    <button onclick = "window.location.href='users.php'" class = "btn btn-primary btn-lg btn-block">VIP用户管理</button><br>
+    <button onclick = "window.location.href='perks.php'" class = "btn btn-primary btn-lg btn-block">VIP用户配置管理</button><br>
+    <button onclick = "window.location.href='add-users.html'" class = "btn btn-primary btn-lg btn-block">网页用户添加</button><br>
+    <button onclick = "window.location.href='add-key.html'" class = "btn btn-primary btn-lg btn-block">添加随机卡密</button>
 </body>
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
