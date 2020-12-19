@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset = "UTF-8">
+    <title>VIP管理系统-用户添加</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel = "icon" href = "image/favicon.ico">
+    <style>
+        body {
+            margin:0 auto;
+            width:700px;
+            height:700px;
+        }
+    </style>
+</head>
+<body>
+    <form role = "form">
+        <div class = "form-group">
+            <label for = "user">用户名</label>
+            <input id = "user" placeholder="请输入用户名" class = "form-control">
+        </div>
+        <div class = "form-group">
+            <label for = "nickname">昵称</label>
+            <input id = "nickname" placeholder="请输入昵称" class = "form-control">
+        </div>
+        <div class = "form-group">
+            <label for = "pass">密码</label>
+            <input id = "pass" type = "password" placeholder="请输入密码" class = "form-control">
+        </div>
+        <div class = "form-group">
+            <label for = "againpass">确认密码</label>
+            <input id = "againpass" type = "password" placeholder="请再次输入密码" class = "form-control"><br>
+            <button type = "button" class="btn btn-primary" onclick = "CheckForm()" id = "submit"><span id = "icon" class = "glyphicon glyphicon-send"></span> 提交</button>
+        </div>
+    </form>
+</body>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    function CheckForm(){
+        var g_user = document.getElementById("user").value;
+        var g_pass = document.getElementById("pass").value;
+        var g_againpass = document.getElementById("againpass").value;
+        var g_nickname = document.getElementById("nickname").value;
+        if (g_user == "" || g_pass == "" || g_againpass == "" || g_nickname == ""){
+            alert("信息未填写完整哦~");
+            return false;
+        }
+        if (g_pass != g_againpass){
+            alert("两次密码输入不一致哦~");
+            return false;
+        }
+        $("#submit").attr("disabled", "disabled");
+        $("#submit").html("<span id = 'icon' class = 'fa fa-spinner fa-spin'></span> 正在添加...");
+        $.post("add-users.php", {
+            user:g_user,
+            nickname:g_nickname,
+            pass:g_pass
+        }, function(data, status){
+            if (status != "success"){
+                alert("发送请求失败，请联系管理员");
+                $("#submit").html("<span id = 'icon' class = 'glyphicon glyphicon-send'></span> 提交");
+                $("#submit").removeAttr("disabled");
+                return;
+            }
+            if (data == "has same user"){
+                alert("用户名已经存在~");
+                $("#submit").html("<span id = 'icon' class = 'glyphicon glyphicon-send'></span> 提交");
+                $("#submit").removeAttr("disabled");
+                return;
+            }
+            if (data == "has same nickname"){
+                alert("昵称已经存在~");
+                $("#submit").html("<span id = 'icon' class = 'glyphicon glyphicon-send'></span> 提交");
+                $("#submit").removeAttr("disabled");
+                return;
+            }
+            if (data != "success"){
+                alert("添加失败~");
+                $("#submit").html("<span id = 'icon' class = 'glyphicon glyphicon-send'></span> 提交");
+                $("#submit").removeAttr("disabled");
+                return;
+            }
+            alert("添加成功~点击确认即可跳转回主页~");
+            window.location.href = "index.php";
+        });
+    }
+</script>
+</html>
