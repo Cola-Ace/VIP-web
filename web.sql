@@ -1,19 +1,3 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : muyea
- Source Server Type    : MySQL
- Source Server Version : 50728
- Source Host           : muyeaqwq.mysql.rds.aliyuncs.com:3306
- Source Schema         : rank
-
- Target Server Type    : MySQL
- Target Server Version : 50728
- File Encoding         : 65001
-
- Date: 19/12/2020 02:00:30
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
