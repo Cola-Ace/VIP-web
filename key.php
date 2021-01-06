@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/sweetalert"></script>
     <link rel = "icon" href = "image/favicon.ico">
     <style>
         body {
@@ -82,7 +83,7 @@
         $("#submitDays").click(function(){
             var g_day = $("#newDays").val();
             if (g_day <= 0){
-                alert("天数不能为0或为负数！");
+                swal("错误", "天数填写错误", "error");
                 return;
             }
             $(this).attr("disabled", "disabled");
@@ -93,18 +94,18 @@
                 day:g_day
             }, function(data, status){
                 if (status != "success"){
-                    alert("发送请求失败，请联系管理员");
+                    swal("错误", "发送请求失败", "error");
                     $(this).removeAttr("disabled");
                     $(this).text("提交更改");
                     return;
                 }
                 if (data != "success"){
-                    alert("更改失败~");
+                    swal("错误", "更改失败", "error");
                     $(this).removeAttr("disabled");
                     $(this).text("提交更改");
                     return;
                 }
-                alert("更改成功~");
+                swal("成功", "更改成功", "success");
                 window.location.reload();
             });
         });
@@ -115,25 +116,17 @@
                 key:$keys
             }, function(data, status){
                 if (status != "success"){
-                    alert("发送请求失败，请联系管理员");
+                    swal("错误", "发送请求失败", "error");
                     return;
                 }
                 if (data != "success"){
-                    alert("删除失败~");
+                    swal("错误", "删除失败", "error");
                     return;
                 }
-                alert("删除成功~");
-                window.location.reload();
+                swal("成功", "删除成功", "success").then((value) => {
+                    window.location.reload();
+                });
             });
         });
-        /*
-        $("#days").click(function(){
-            $(this).next("#save").show();
-            $(this).attr("id", "edit");
-            $(this).html("<form role = 'form'><div class = 'form-group'><input class = 'form-control' id = 'day' value = '" + $(this).val + "'></div></form>");
-        });
-        $("#save").click(function(){
-            var day = $(this).prev("#edit").val;
-        });*/
     });
 </script>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>VIP管理网页 - 批量添加卡密</title>
+        <meta charset = "UTF-8">
+        <link rel = "icon" href = "image/favicon.ico">
+        <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+        <script src = "https://cdn.jsdelivr.net/npm/sweetalert"></script>
+    </head>
+    <body>
+        <script>
+            function FindStr(source, str1, str2){
+                var p = source.split(str1);
+                return p[p.length - 1].split(str2, 1)[0];
+            }
+            $(function(){
+                var days = prompt("请输入天数：");
+                if (days == null || days == ""){
+                    window.location.href = "index.php";
+                    return;
+                }
+                var numbers = prompt("请输入生成数量：");
+                if (numbers == null || numbers == ""){
+                    window.location.href = "index.php";
+                    return;
+                }
+                for (let a = 1; a <= numbers; a++){
+                    $.post("add-key.php", {
+                        day:days,
+                    }, function(data, status){
+                        if (status != "success"){
+                            swal("错误", "发送请求失败", "error");
+                            return;
+                        }
+                        if (FindStr(data, "[Status]", "[StatusEnd]") != "success"){
+                            swal("错误", "添加失败", "error");
+                            return;
+                        }
+                    });
+                }
+                swal("成功", "添加成功", "success").then((value) => {
+                    window.location.href = "index.php";
+                });
+            });
+        </script>
+    </body>
+</html>

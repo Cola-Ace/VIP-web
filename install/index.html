@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+        <script src = "https://cdn.jsdelivr.net/npm/sweetalert"></script>
         <link rel = "icon" href = "../image/favicon.ico">
         <style>
             .father {
@@ -50,7 +51,7 @@
             var g_pass = document.getElementById("pass").value;
             var g_db = document.getElementById("db").value;
             if (g_url == "" || g_port == "" || g_user == "" || g_pass == "" || g_db == ""){
-                alert("信息未填写完整哦~");
+                swal("错误", "信息未填写完整", "error");
                 return false;
             }
             $("#submit").attr("disabled", "disabled");
@@ -63,17 +64,18 @@
                 db:g_db
             }, function(data, status){
                 if (status != "success"){
-                    alert("发送请求失败，请联系管理员");
+                    swal("错误", "发送请求失败", "error");
                     $("#submit").html("<span id = 'icon' class = 'glyphicon glyphicon-send'></span> 提交");
                     $("#submit").removeAttr("disabled");
                 }
                 if (data != "success"){
-                    alert("数据库连接出错，请重新检查配置信息哦~");
+                    swal("错误", "数据库连接出错，请重新检查配置信息", "error");
                     $("#submit").html("<span id = 'icon' class = 'glyphicon glyphicon-send'></span> 提交");
                     $("#submit").removeAttr("disabled");
                 } else {
-                    alert("数据库连接成功~配置完成，关闭此弹窗即可返回界面");
-                    window.location.href = "../index.php";
+                    swal("配置成功", "数据库连接成功，配置完成，关闭弹窗返回界面", "success").then((value) => {
+                        window.location.href = "../index.php";
+                    });
                 }
             });
         }

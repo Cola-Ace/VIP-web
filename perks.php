@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <script src = "https://cdn.jsdelivr.net/npm/sweetalert"></script>
     <link rel = "icon" href = "image/favicon.ico">
     <style>
         body {
@@ -78,19 +79,20 @@
                 steamid:$authid
             }, function(data, status){
                 if (status != "success"){
-                    alert("访问失败，请联系管理员");
+                    swal("错误", "发送请求失败", "error");
                     $("button").removeAttr("disabled");
                     $(this).html("<i class = 'fa fa-times'></i> 删除");
                     return;
                 }
                 if (data != "success"){
-                    alert("删除失败~");
+                    swal("错误", "删除失败", "error");
                     $("button").removeAttr("disabled");
                     $(this).html("<i class = 'fa fa-times'></i> 删除");
                     return;
                 }
-                alert("删除成功~");
-                window.location.reload();
+                swal("成功", "删除成功", "success").then((value) => {
+                    window.location.reload();
+                })
             });
         });
     });
